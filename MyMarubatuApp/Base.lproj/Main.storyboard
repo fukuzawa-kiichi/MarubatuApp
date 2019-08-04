@@ -72,7 +72,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="qustionLabel" destination="WUZ-1Y-me5" id="Msp-rl-wwZ"/>
+                        <outlet property="questionLabel" destination="WUZ-1Y-me5" id="SnE-Gl-LsM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

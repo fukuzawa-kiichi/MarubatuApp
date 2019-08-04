@@ -18,32 +18,56 @@ class ViewController: UIViewController {
     
     let questions: [[String: Any]] = [
         ["question": "iphoneアプリを開発する言語はZcodeである",
-         "anser": false
+         "answer": false
         ],
         ["question": "Xcode画面の右側にはユーティリティーズがある",
-        "anser": true
+        "answer": true
         ],
         ["question": "UILableは文字列を表示する際に利用する",
-         "anser": true
+         "answer": true
         ],
         ["question": "ドラえもんは常に浮いている",
-         "anser": true
+         "answer": true
         ],
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        showQuestion()
     }
 
-    // ☓のボタン
-    @IBAction func batuButton(_ sender: Any) {
+    // 回答をチェックする関数
+    // 次の問題を表示する
+    func checkAnswer(yourAnswer: Bool) {
+        // どの問題か算出する
+        let question = questions[questionNum]
         
-    }
-    
-    // ◯のボタン
-    @IBAction func maruButton(_ sender: Any) {
-        
+        // 問題の答えを取り出す
+        if let ans = question["answer"] as? Bool {
+            
+            // 選択された答えと問題の答えを比較
+            if yourAnswer == ans{
+                // 正解
+                // questionNumに1足して次の問題へ
+                questionNum += 1
+                showAlert(message: "正解")
+            }
+            else{
+                // 不正解
+                showAlert(message: "不正解")
+            }
+        }
+        else{
+            print("何も入っていません ")
+            return
+        }
+         // questionNumの値が問題数以上になったとき最初の問題に戻る
+        if questionNum >= questions.count{
+            questionNum = 0
+        }
+        // 次の問題を表示する
+        // 正解であれば次の問題が、不正解ならば同じ問題が再表示される
+        showQuestion()
     }
     
     // 問題を表示する関数
@@ -57,6 +81,31 @@ class ViewController: UIViewController {
             questionLabel.text = que
         }
     }
+    
+    // アラートを表示する
+    func showAlert(message: String){
+        // アラートの作成
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        // アラートのアクション(ボタン部分の定義)
+        let close = UIAlertAction(title: "閉じる", style: .cancel, handler: nil)
+        // 作成したalertに閉じるボタンを追加
+        alert.addAction(close)
+        // アラートを表示
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+    // ☓のボタン
+    @IBAction func batuButton(_ sender: UIButton) {
+        checkAnswer(yourAnswer: false)
+    }
+    
+    // ◯のボタン
+    @IBAction func maruButton(_ sender: UIButton) {
+        checkAnswer(yourAnswer: true)
+    }
+    
+   
     
 }
 
