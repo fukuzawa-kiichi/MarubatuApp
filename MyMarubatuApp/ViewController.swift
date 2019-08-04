@@ -52,8 +52,6 @@ class ViewController: UIViewController {
         
         // 問題の答えを取り出す
         if let ans = question["answer"] as? Bool {
-            
-            if questionNum < questions.count  - 1 {
                 
                 // 選択された答えと問題の答えを比較
                 if yourAnswer == ans{
@@ -62,24 +60,37 @@ class ViewController: UIViewController {
                     questionNum += 1
                     // 正解数のみカウント
                     ansCount += 1
-                    showAlert(message: "正解")
                     
+                    // 結果を表示する
+                    if questionNum >= questions.count{
+                    showAlert(message: "\(questions.count)問中\(ansCount)問正解しました")
+                    questionNum = 0
+                    ansCount = 0
+                    hintCount = true
+                    }
+                    else{
+                     showAlert(message: "正解")
+                    }
                 }
                 else{
                     // 不正解
-                    showAlert(message: "不正解")
+                    
                     // 間違えても次の問題へ
                     questionNum += 1
                     
+                    // 結果を表示する
+                    if questionNum >= questions.count{
+                        showAlert(message: "\(questions.count)問中\(ansCount)問正解しました")
+                        questionNum = 0
+                        ansCount = 0
+                        hintCount = true
+                    }
+                    else{
+                        showAlert(message: "不正解")
+                    }
+                    
                 }
-            }
-            else{
-                showAlert(message: "\(questions.count)問中\(ansCount)問正解しました")
-                questionNum = 0
-                ansCount = 0
-                hintCount = true
-                
-            }
+            
             
         }
         else{
